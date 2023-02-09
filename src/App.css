@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
+*{
+    margin:0;
+    padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container{
+    background: linear-gradient();
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-wrapper{
+    background-color: thistle;
+    min-width: 450px;
+    min-height: 650px;
+    padding: 30px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 2px 6px 40px #000;
+    margin-bottom: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.header h1{
+    color: aliceblue;
+    text-align: center;
+    margin: 30px 0;
 }
 
-.App-link {
-  color: #61dafb;
+.task-input{
+    outline: none;
+    width: 260px;
+    padding: 15px;
+    margin-right: 25px;
+    font-size: 20px;
+    color: pink;
+    background-color: #000;
+    border-radius: 10px;
+}
+.button-add{
+    width:70px;
+    padding:15px 15px;
+    font: size 20px;
+    border-radius: 10px;
+    border: 0;
+    color: pink;
+    background-color: #000;
+    cursor: pointer;
+}
+.button-add:hover{
+    background-color: pink;
+    color: #000;
+}
+.list-item{
+    display: flex;
+    margin:20px 0;
+    border: 3px solid #ffff;
+    border-radius: 10px;
+    padding: 10px;
+    max-height: 30px;
+    font-size: 20px;
+}
+.button-complete,
+.button-delete,
+.button-edit{
+    border:none;
+    outline:none;
+    cursor: pointer;
+    background-color: trasparent;
+    font-size:  20px;
+    border-radius: 50%;
+}
+.button-complete{
+    color: #ff6c6c;
+    margin-right: 20px;
+}
+.button-delete{
+    margin-right: 20px;
+}
+.button-edit{
+    margin-right: 20px;
+}
+.complete{
+    color: rgb(157, 106, 115);
+    text-decoration-line: line-through;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.list{
+    width: 220px;
+    border:none;
+    padding-left: 10px;
+    margin-right: 15px;
+}
+
+input:focus,
+button:focus{
+    outline: none;
+}
+
+.popimg{
+    width: 250px;
+    height: 250px;
+    background-color: aliceblue;
+    display: flex;
+    z-index: 99;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    justify-content: center;
+    align-items: center;
+}
+.연진이{
+    width: 150px;
+    height: 150px;
 }
