@@ -1,25 +1,9 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import {v4 as uuidv4} from 'uuid'
 import axios from "axios";
 
-const Form = ({title,setTitle,todos,setTodos,editTodo,setEditTodo,pop,setPop}) => {
+const Form = ({title,setTitle,todos,setTodos,editTodo,setEditTodo}) => {
     
-    // const updateTodo=(title,id,complete)=>{
-    //     const newTodo = todos.map((todo)=>{
-    //         return todo.id === id ? {title,id,complete}: todo
-    //     });
-    //     setTodos(newTodo);
-    //     setEditTodo(null)
-        
-    // }
-    
-    // useEffect(()=>{
-    //     if(editTodo){
-    //         setInput(editTodo.title);
-    //     }else{
-    //         setInput("")
-    //     }
-    // },[setInput,editTodo])
 
     const onInputChange=(event)=>{
         setTitle(event.target.value)
@@ -39,17 +23,46 @@ const Form = ({title,setTitle,todos,setTodos,editTodo,setEditTodo,pop,setPop}) =
     
     // }
 
-        const onFormSubmit = async()=>{
-            if(pop === true){
-                setPop(!pop)
-            }
-            const {data} = await axios.post("http://localhost:5000/todos",{
-                id: uuidv4(),
-                title,
-                complete:false
-            });
+    const readList = async()=>{
+        const {data} = await axios.get("http://localhost:5000/todos")
+        setTodos(data)
+    };
+    useEffect(()=>{
+        (async ()=>{
+            await readList();
+        })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
+    useEffect(()=>{
+        if(editTodo){
+            setTitle(editTodo.title)
+        }else{
             setTitle("")
         }
+    },[setTitle,editTodo])
+
+        const onFormSubmit = async()=>{
+            if(!editTodo ){
+                await axios.post("http://localhost:5000/todos",{
+                    id: uuidv4(),
+                    title,
+                    complete:false
+                });
+                setTitle("")
+            }else{
+                updateTodo(editTodo.id)
+                }    
+            }
+    const updateTodo=async(id)=>{
+        await axios.patch(`http://localhost:5000/todos/${id}`,{
+            title:title
+        })
+        await readList()
+    }
+    
+        
+    
     return (
         <form onSubmit={onFormSubmit}>
             <input 

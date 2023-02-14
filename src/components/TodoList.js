@@ -1,23 +1,24 @@
 import '../App.css'
-import React,{useCallback, useEffect, useState} from 'react';
+import React,{ useEffect} from 'react';
 import axios from 'axios';
 
 
-const 연진이 =({pop,setPop})=>{
-    const close=()=>{
-        setPop(!pop)
-    }
-    return (
-        <div className='popimg'>
-        <img classNmae='연진이' alt='' src='https://cdn.maily.so/202301/trendaword/1674086037867122.jpeg' />
-        <button calssName='button-edit' onClick={close}>
-        '닫기!'
-        </button>
-        </div>
-    )
- }
 
-const TodoList = ({todos,setTodos,setEditTodo,toggle,pop,setPop}) => {
+// const 연진이 =({pop,setPop})=>{
+//     const close=()=>{
+//         setPop(!pop)
+//     }
+//     return (
+//         <div className='popimg'>
+//         <img classNmae='연진이' alt='' src='https://cdn.maily.so/202301/trendaword/1674086037867122.jpeg' />
+//         <button calssName='button-edit' onClick={close}>
+//         '닫기!'
+//         </button>
+//         </div>
+//     )
+//  }
+
+const TodoList = ({todos,setTodos,setEditTodo,editTodo}) => {
     // const [completeImg , setCompleteImg] = useState([])
     
     const readList = async()=>{
@@ -44,46 +45,31 @@ const TodoList = ({todos,setTodos,setEditTodo,toggle,pop,setPop}) => {
         await readList()
     }
 
+    const handelUpdate=(todo)=>{
+        setEditTodo(todo)
+        console.log(editTodo)
+    }
 
-
-    //
-    useEffect(()=>{
-        (async ()=>{
-            const {data} = await axios.get("http://localhost:5000/todos")
-          if(data.every(el=>el.complete === true)){
-            setPop(!pop)
-          }else if(data.length === 0) {setPop(false)}
-          else{setPop(false)}
-        })();
-        // if(completeImg.length !==0 && completeImg.length === todos.length){
-        //     setPop(!pop)
-        // }else if(completeImg.length !==0){
-        //     setPop(false)
-        // }
+    // //
+    // useEffect(()=>{
+    //     (async ()=>{
+    //         const {data} = await axios.get("http://localhost:5000/todos")
+    //       if(data.every(el=>el.complete === true)){
+    //         setPop(!pop)
+    //       }else if(data.length === 0){
+    //         setPop(false)
+    //       }else setPop(false)
         
-    },[todos])
+    //     })();
+    //     // if(completeImg.length !==0 && completeImg.length === todos.length){
+    //     //     setPop(!pop)
+    //     // }else if(completeImg.length !==0){
+    //     //     setPop(false)
+    //     // }
+        
+   
+    // },[todos])
     
-    // const handleEdit=({id})=>{
-    //     const findTodo = todos.find((todo)=>todo.id === id);
-    //     setEditTodo(findTodo)
-    //     //setEditTodo(클릭한 값 전체가 들어감
-    // }
-       // const handleDelte=({id})=>{
-    //     setTodos(todos.filter((todo)=> todo.id !== id));
-    // }
-
-    // const handleComplete=(todo) =>{
-    //     setTodos(
-    //         todos.map((item)=>{
-    //             if(item.id === todo.id){
-    //                 return{...item,complete: !item.complete}
-    //             }
-    //             return item;
-                
-    //         })
-    //     )
-        
-    // }
     // const complete = async({id})=>{
     //     // const data = todos.find((todo)=>todo.id === id);
     //     let re = completeImg.some(el=>el.id === data.id)
@@ -109,32 +95,32 @@ const TodoList = ({todos,setTodos,setEditTodo,toggle,pop,setPop}) => {
                     <div
                         type='text'
                         value={todo.title}
-                        className={`list ${todo.complete ? 'complete':'' }  `}
-                        onChange={(event)=>event.preventDefault()}
+                        className={`list ${todo.complete ? 'complete' : ''}  `}
+                        onChange={(event) => event.preventDefault()}
                     >{todo.title}</div>
                     <div>
                         <button className='button-complete task-button'
-                            onClick={()=>{handleComplete(todo);
-                                }}>
+                            onClick={() => {
+                                handleComplete(todo);
+                            } }>
                             <i className='fa fa-check-circle'></i>
                         </button>
                         <button className='button-edit task-button'
-                            onClick={()=>{
-                                // handleEdit(todo);
-                                toggle()}}>
+                            onClick={() => {handelUpdate(todo) } }>
                             <i className='fa fa-edit'></i>
                         </button>
-                        <button className='button-delete task-button' 
-                            onClick={()=>handleDelte(todo)}>
+                        <button className='button-delete task-button'
+                            onClick={() => handleDelte(todo)}>
                             <i className='fa fa-trash'></i>
                         </button>
                     </div>
                 </div>
+                
             ))}
-            {pop === false ? null :
+            {/* {pop === false ? null :
                 // eslint-disable-next-line react/jsx-pascal-case
                 <연진이 pop={pop} setPop={setPop}/>
-            }
+            } */}
         </div>
     );
 };
